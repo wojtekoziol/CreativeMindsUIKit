@@ -6,6 +6,12 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		9F3BF3982D219C61003DFDB0 /* Auth in Frameworks */ = {isa = PBXBuildFile; productRef = 9F3BF3972D219C61003DFDB0 /* Auth */; };
+		9F3BF39A2D219C61003DFDB0 /* Supabase in Frameworks */ = {isa = PBXBuildFile; productRef = 9F3BF3992D219C61003DFDB0 /* Supabase */; };
+		9F3BF54D2D21AAA3003DFDB0 /* Factory in Frameworks */ = {isa = PBXBuildFile; productRef = 9F3BF54C2D21AAA3003DFDB0 /* Factory */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		9F3BF3782D219B01003DFDB0 /* CreativeMindsUIKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CreativeMindsUIKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -36,6 +42,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9F3BF54D2D21AAA3003DFDB0 /* Factory in Frameworks */,
+				9F3BF39A2D219C61003DFDB0 /* Supabase in Frameworks */,
+				9F3BF3982D219C61003DFDB0 /* Auth in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -78,6 +87,9 @@
 			);
 			name = CreativeMindsUIKit;
 			packageProductDependencies = (
+				9F3BF3972D219C61003DFDB0 /* Auth */,
+				9F3BF3992D219C61003DFDB0 /* Supabase */,
+				9F3BF54C2D21AAA3003DFDB0 /* Factory */,
 			);
 			productName = CreativeMindsUIKit;
 			productReference = 9F3BF3782D219B01003DFDB0 /* CreativeMindsUIKit.app */;
@@ -107,6 +119,10 @@
 			);
 			mainGroup = 9F3BF36F2D219B01003DFDB0;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				9F3BF3962D219C61003DFDB0 /* XCRemoteSwiftPackageReference "supabase-swift" */,
+				9F3BF54B2D21AAA3003DFDB0 /* XCRemoteSwiftPackageReference "Factory" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 9F3BF3792D219B01003DFDB0 /* Products */;
 			projectDirPath = "";
@@ -333,6 +349,43 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		9F3BF3962D219C61003DFDB0 /* XCRemoteSwiftPackageReference "supabase-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/supabase/supabase-swift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.5.1;
+			};
+		};
+		9F3BF54B2D21AAA3003DFDB0 /* XCRemoteSwiftPackageReference "Factory" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/hmlongco/Factory";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.4.3;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		9F3BF3972D219C61003DFDB0 /* Auth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9F3BF3962D219C61003DFDB0 /* XCRemoteSwiftPackageReference "supabase-swift" */;
+			productName = Auth;
+		};
+		9F3BF3992D219C61003DFDB0 /* Supabase */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9F3BF3962D219C61003DFDB0 /* XCRemoteSwiftPackageReference "supabase-swift" */;
+			productName = Supabase;
+		};
+		9F3BF54C2D21AAA3003DFDB0 /* Factory */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9F3BF54B2D21AAA3003DFDB0 /* XCRemoteSwiftPackageReference "Factory" */;
+			productName = Factory;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 9F3BF3702D219B01003DFDB0 /* Project object */;
 }
