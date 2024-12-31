@@ -10,6 +10,8 @@ import Foundation
 
 class AuthController {
     @Published private(set) var isAuthenticated = false
+    @Published private(set) var isLoading = false
+    @Published private(set) var errorMessage: String?
 
     init() {
         Task {
@@ -19,12 +21,26 @@ class AuthController {
         }
     }
 
-    func signIn() async {
-        let _ = try? await SupabaseService.shared.client.auth.signIn(email: "wojti@mail.com", password: "password")
+    func signIn(email: String, password: String) async {
+        isLoading = true
+        defer { isLoading = false }
+        errorMessage = nil
+        do {
+            let _ = try await SupabaseService.shared.client.auth.signIn(email: email, password: password)
+        } catch {
+            errorMessage = "Something went wrong. Please try again."
+        }
     }
 
-    func signUp() async {
-        let _ = try? await SupabaseService.shared.client.auth.signUp(email: "wojti@mail.com", password: "password")
+    func signUp(email: String, password: String) async {
+        isLoading = true
+        defer { isLoading = false }
+        errorMessage = nil
+        do {
+            let _ = try await SupabaseService.shared.client.auth.signUp(email: email, password: password)
+        } catch {
+            errorMessage = "Something went wrong. Please try again."
+        }
     }
 
     func signOut() async {

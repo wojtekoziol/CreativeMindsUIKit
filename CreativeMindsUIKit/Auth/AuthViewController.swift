@@ -39,7 +39,7 @@ class AuthViewController: UIViewController {
         if isAuthenticated {
             newVC = PostListViewController()
         } else {
-            newVC = LoginViewController()
+            newVC = UINavigationController(rootViewController: LoginViewController())
         }
 
         addChild(newVC)
