@@ -10,8 +10,8 @@ import Factory
 import UIKit
 
 class AuthViewController: UIViewController {
-    private var subscribers = Set<AnyCancellable>()
     @Injected(\.authController) private var auth
+    private var subscribers = Set<AnyCancellable>()
 
     private var currentVC: UIViewController?
 
@@ -29,6 +29,7 @@ class AuthViewController: UIViewController {
             }.store(in: &subscribers)
     }
 
+    @MainActor
     private func handleAuthChange(_ isAuthenticated: Bool) {
         currentVC?.willMove(toParent: nil)
         currentVC?.view.removeFromSuperview()

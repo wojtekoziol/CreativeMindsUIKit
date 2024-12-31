@@ -6,13 +6,16 @@
 //
 
 import Combine
+import Factory
 import UIKit
 
 class PostListViewController: UIViewController {
+    @Injected(\.authController) private var auth
+
     private let viewModel = PostListViewModel()
     private var subscribers = Set<AnyCancellable>()
 
-    private let postListView = PostListView(frame: .zero)
+    private let postListView = PostListView()
 
     override func loadView() {
         view = postListView
@@ -39,5 +42,16 @@ class PostListViewController: UIViewController {
 extension PostListViewController: PostListViewDelegate {
     func postListViewDidPullToRefresh(_ postListView: PostListView) {
         viewModel.fetchPosts()
+    }
+
+    func postListViewDidTapPostButton(_ postListView: PostListView) {
+        let vc = NewPostViewController()
+        navigationController?.pushViewController(vc, animated: true)
+    }
+
+    func postListViewDidTapProfileButton(_ postListView: PostListView) {
+        Task {
+            await auth.signOut()
+        }
     }
 }

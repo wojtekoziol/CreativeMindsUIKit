@@ -9,12 +9,16 @@ import UIKit
 
 protocol PostListViewDelegate: AnyObject {
     func postListViewDidPullToRefresh(_ postListView: PostListView)
+    func postListViewDidTapPostButton(_ postListView: PostListView)
+    func postListViewDidTapProfileButton(_ postListView: PostListView)
 }
 
 class PostListView: UIView {
     weak var delegate: PostListViewDelegate?
 
     private var posts: [PostListViewModel.Post] = []
+
+    private var appBar = PostListViewAppBar()
 
     private var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: DynamicHeightLayout())
@@ -37,20 +41,27 @@ class PostListView: UIView {
     private func setupView() {
         backgroundColor = .systemBackground
 
+        appBar.delegate = self
+
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.refreshControl = UIRefreshControl()
         collectionView.refreshControl?.addTarget(self, action: #selector(handlePullToRefresh), for: .valueChanged)
 
+        addSubview(appBar)
         addSubview(collectionView)
     }
 
     private func setupConstraints() {
         NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: topAnchor),
+            appBar.topAnchor.constraint(equalTo: topAnchor),
+            appBar.leftAnchor.constraint(equalTo: leftAnchor),
+            appBar.rightAnchor.constraint(equalTo: rightAnchor),
+
+            collectionView.topAnchor.constraint(equalTo: appBar.bottomAnchor),
             collectionView.bottomAnchor.constraint(equalTo: bottomAnchor),
-            collectionView.leftAnchor.constraint(equalTo: leftAnchor, constant: 4),
-            collectionView.rightAnchor.constraint(equalTo: rightAnchor, constant: -4),
+            collectionView.leftAnchor.constraint(equalTo: leftAnchor, constant: 16),
+            collectionView.rightAnchor.constraint(equalTo: rightAnchor, constant: -16),
         ])
     }
 
@@ -64,6 +75,16 @@ class PostListView: UIView {
         collectionView.refreshControl?.endRefreshing()
         self.posts = posts
         collectionView.reloadData()
+    }
+}
+
+extension PostListView: PostListViewAppBarDelegate {
+    func postListViewAppBarDidTapPostButton(_ postListViewAppBar: PostListViewAppBar) {
+        delegate?.postListViewDidTapPostButton(self)
+    }
+    
+    func postListViewAppBarDidTapProfileButton(_ postListViewAppBar: PostListViewAppBar) {
+        delegate?.postListViewDidTapProfileButton(self)
     }
 }
 

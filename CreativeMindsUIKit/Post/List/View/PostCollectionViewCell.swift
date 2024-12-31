@@ -35,7 +35,7 @@ class PostCollectionViewCell: UICollectionViewCell {
     }
 
     func configure(with post: PostListViewModel.Post) {
-        authorLabel.text = post.author.username
+        authorLabel.text = "@\(post.author.username)"
         contentLabel.text = post.content
     }
 
