@@ -13,4 +13,9 @@ extension SharedContainer {
         self { AuthController() }
             .shared
     }
+
+    var postListViewModel: Factory<PostListViewModel> {
+        self { PostListViewModel() }
+            .singleton
+    }
 }

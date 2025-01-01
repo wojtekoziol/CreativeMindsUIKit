@@ -11,8 +11,8 @@ import UIKit
 
 class PostListViewController: UIViewController {
     @Injected(\.authController) private var auth
+    @Injected(\.postListViewModel) private var viewModel
 
-    private let viewModel = PostListViewModel()
     private var subscribers = Set<AnyCancellable>()
 
     private let postListView = PostListView()

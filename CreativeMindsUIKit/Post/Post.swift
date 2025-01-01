@@ -13,6 +13,12 @@ struct Post: Codable, Identifiable {
     let created_at: Date
 }
 
+extension NewPostViewModel {
+    struct Post: Codable {
+        let content: String
+    }
+}
+
 extension PostListViewModel {
     struct Post: Codable, Identifiable {
         let id: UUID

@@ -24,4 +24,8 @@ class PostListViewModel {
             }
         }
     }
+
+    func insertPost(_ newPost: PostListViewModel.Post) {
+        posts.insert(newPost, at: 0)
+    }
 }
