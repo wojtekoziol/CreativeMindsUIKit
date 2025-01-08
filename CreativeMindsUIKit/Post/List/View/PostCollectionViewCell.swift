@@ -24,6 +24,14 @@ class PostCollectionViewCell: UICollectionViewCell {
         return label
     }()
 
+    private let commentsLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .accent
+        label.font = .systemFont(ofSize: 14)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupCell()
@@ -37,6 +45,7 @@ class PostCollectionViewCell: UICollectionViewCell {
     func configure(with post: Post) {
         authorLabel.text = post.author.username.asUsername
         contentLabel.text = post.content
+        commentsLabel.text = "\(post.comments.count) comment(s)"
     }
 
     private func setupCell() {
@@ -45,6 +54,7 @@ class PostCollectionViewCell: UICollectionViewCell {
 
         contentView.addSubview(authorLabel)
         contentView.addSubview(contentLabel)
+        contentView.addSubview(commentsLabel)
     }
 
     private func setupConstraints() {
@@ -56,7 +66,11 @@ class PostCollectionViewCell: UICollectionViewCell {
             contentLabel.topAnchor.constraint(equalTo: authorLabel.bottomAnchor),
             contentLabel.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 8),
             contentLabel.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -8),
-            contentLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8),
+
+            commentsLabel.topAnchor.constraint(equalTo: contentLabel.bottomAnchor),
+            commentsLabel.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 8),
+            commentsLabel.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -8),
+            commentsLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8),
         ])
         authorLabel.setContentHuggingPriority(.required, for: .vertical)
     }
