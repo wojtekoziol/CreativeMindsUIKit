@@ -31,7 +31,7 @@ extension NewPostViewController: NewPostViewDelegate, NewPostViewModelDelegate {
         viewModel.publish(content: content)
     }
     
-    func didAddNewPost(_ newPost: PostListViewModel.Post?) {
+    func didAddNewPost(_ newPost: Post?) {
         if let newPost {
             Container.shared.postListViewModel().insertPost(newPost)
             navigationController?.popToRootViewController(animated: true)

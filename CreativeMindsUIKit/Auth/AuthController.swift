@@ -12,11 +12,13 @@ class AuthController {
     @Published private(set) var isAuthenticated = false
     @Published private(set) var isLoading = false
     @Published private(set) var errorMessage: String?
+    private(set) var userID: UUID?
 
     init() {
         Task {
             for await state in SupabaseService.shared.client.auth.authStateChanges {
                 isAuthenticated = state.session != nil
+                userID = state.session?.user.id
             }
         }
     }

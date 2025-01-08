@@ -11,12 +11,13 @@ protocol PostListViewDelegate: AnyObject {
     func postListViewDidPullToRefresh(_ postListView: PostListView)
     func postListViewDidTapPostButton(_ postListView: PostListView)
     func postListViewDidTapProfileButton(_ postListView: PostListView)
+    func postListViewDidTapPost(_ postListView: PostListView, post: Post)
 }
 
 class PostListView: UIView {
     weak var delegate: PostListViewDelegate?
 
-    private var posts: [PostListViewModel.Post] = []
+    private var posts: [Post] = []
 
     private var appBar = PostListViewAppBar()
 
@@ -71,7 +72,7 @@ class PostListView: UIView {
 
     // MARK: - UI Update
     @MainActor
-    func update(with posts: [PostListViewModel.Post]) {
+    func update(with posts: [Post]) {
         collectionView.refreshControl?.endRefreshing()
         self.posts = posts
         collectionView.reloadData()
@@ -102,6 +103,11 @@ extension PostListView: UICollectionViewDelegate, UICollectionViewDataSource {
         }
         cell.configure(with: posts[indexPath.item])
         return cell
+    }
+
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        collectionView.deselectItem(at: indexPath, animated: true)
+        delegate?.postListViewDidTapPost(self, post: posts[indexPath.item])
     }
 }
 

@@ -34,8 +34,8 @@ class PostCollectionViewCell: UICollectionViewCell {
         fatalError()
     }
 
-    func configure(with post: PostListViewModel.Post) {
-        authorLabel.text = "@\(post.author.username)"
+    func configure(with post: Post) {
+        authorLabel.text = post.author.username.asUsername
         contentLabel.text = post.content
     }
 

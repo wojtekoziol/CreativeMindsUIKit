@@ -54,4 +54,9 @@ extension PostListViewController: PostListViewDelegate {
             await auth.signOut()
         }
     }
+
+    func postListViewDidTapPost(_ postListView: PostListView, post: Post) {
+        let vc = PostDetailsViewController(post: post)
+        navigationController?.pushViewController(vc, animated: true)
+    }
 }

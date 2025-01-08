@@ -8,15 +8,21 @@
 import Foundation
 
 class PostListViewModel {
-    @Published private(set) var posts: [PostListViewModel.Post] = []
+    @Published private(set) var posts: [Post] = []
 
     func fetchPosts() {
         Task {
             do {
                 posts = try await SupabaseService.shared.client
                     .from("posts")
-                    .select("*, users!author_id(*)")
-                    .order(Post.CodingKeys.created_at.stringValue, ascending: false)
+                    .select("""
+                        *,
+                        author:users!posts_author_id_fkey(*),
+                        comments(
+                            *,
+                            author:users!comments_author_id_fkey(*)
+                        )
+                    """)
                     .execute()
                     .value
             } catch {
@@ -25,7 +31,7 @@ class PostListViewModel {
         }
     }
 
-    func insertPost(_ newPost: PostListViewModel.Post) {
+    func insertPost(_ newPost: Post) {
         posts.insert(newPost, at: 0)
     }
 }

@@ -9,7 +9,7 @@ import Foundation
 
 @MainActor
 protocol NewPostViewModelDelegate: AnyObject {
-    func didAddNewPost(_ newPost: PostListViewModel.Post?)
+    func didAddNewPost(_ newPost: Post?)
 }
 
 class NewPostViewModel {
@@ -17,9 +17,9 @@ class NewPostViewModel {
 
     func publish(content: String) {
         Task {
-            let newPost = NewPostViewModel.Post(content: content)
+            let newPost = Post.Create(content: content)
             do {
-                let newPost: PostListViewModel.Post = try await SupabaseService.shared.client
+                let newPost: Post = try await SupabaseService.shared.client
                     .from("posts")
                     .insert(newPost)
                     .select()

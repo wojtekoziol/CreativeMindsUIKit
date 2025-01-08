@@ -12,3 +12,9 @@ extension String? {
         !(self?.isEmpty ?? true)
     }
 }
+
+extension String {
+    var asUsername: String {
+        "@\(self)"
+    }
+}
